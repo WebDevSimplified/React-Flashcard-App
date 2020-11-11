@@ -1,62 +1,37 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { ApolloProvider } from '@apollo/client';
+import { client } from './client';
 import FlashcardList from './FlashcardList';
 import './App.css'
-import axios from 'axios'
+import DrinkList from './DrinkList';
+
 
 function App() {
-  const [flashcards, setFlashcards] = useState([])
-  const [categories, setCategories] = useState([])
+  // const [flashcards, setFlashcards] = useState([])
+  // const [categories, setCategories] = useState([])
+  // const { data, loading } = useQuery(DRINKS_QUERY);
 
-  const categoryEl = useRef()
-  const amountEl = useRef()
 
-  useEffect(() => {
-    axios
-      .get('https://opentdb.com/api_category.php')
-      .then(res => {
-        setCategories(res.data.trivia_categories)
-      })
-  }, [])
-
-  useEffect(() => {
-   
-  }, [])
-
-  function decodeString(str) {
-    const textArea = document.createElement('textarea')
-    textArea.innerHTML= str
-    return textArea.value
-  }
+  // const categoryEl = useRef()
+  // const amountEl = useRef()
 
   function handleSubmit(e) {
     e.preventDefault()
-    axios
-    .get('https://opentdb.com/api.php', {
-      params: {
-        amount: amountEl.current.value,
-        category: categoryEl.current.value
-      }
-    })
-    .then(res => {
-      setFlashcards(res.data.results.map((questionItem, index) => {
-        const answer = decodeString(questionItem.correct_answer)
-        const options = [
-          ...questionItem.incorrect_answers.map(a => decodeString(a)),
-          answer
-        ]
-        return {
-          id: `${index}-${Date.now()}`,
-          question: decodeString(questionItem.question),
-          answer: answer,
-          options: options.sort(() => Math.random() - .5)
-        }
-      }))
-    })
+
   }
 
+  
   return (
-    <>
-      <form className="header" onSubmit={handleSubmit}>
+      <ApolloProvider client={client}>
+        <div className="container">
+          <h3>Drinks</h3>
+          <DrinkList />
+        </div>
+      </ApolloProvider>
+  );
+}
+
+{/* <form className="header" onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="category">Category</label>
           <select id="category" ref={categoryEl}>
@@ -72,12 +47,6 @@ function App() {
         <div className="form-group">
           <button className="btn">Generate</button>
         </div>
-      </form>
-      <div className="container">
-        <FlashcardList flashcards={flashcards} />
-      </div>
-    </>
-  );
-}
+      </form> */}
 
 export default App;
