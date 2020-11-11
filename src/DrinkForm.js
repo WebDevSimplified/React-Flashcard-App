@@ -71,47 +71,30 @@ function DrinkForm() {
   }
 
   const handleChange = e => {
-    const inputType = e.target.name.split('-')[0];
-
-    switch (inputType) {
-      
-      case 'drink':
-        setDrinkName(e.target.value);
-        break;
-
-      case 'name':
-      case 'amount':
-        if (['name', 'age'].includes(e.target.className) ) {
-          let updatedArray = [...ingredients];
-          updatedArray[e.target.dataset.id][e.target.className] = e.target.value.toUpperCase();
-          setIngredients(updatedArray);
-        } else {
-          setIngredients({ [e.target.name]: e.target.value.toUpperCase() })
-        }
-        
-        console.table(ingredients);
-        setIngredients(ingredients);
-        break;
-
-      default:
-        return
-    }
-    
+    if (['name', 'amount'].includes(e.target.className) ) {
+      console.log(ingredients);
+      const ingredientsCopy = [...ingredients];
+      ingredientsCopy[e.target.dataset.id][e.target.className] = e.target.value;
+      console.table(ingredientsCopy);
+      setIngredients(ingredientsCopy);
+    };
   }
+
+  const updateDrink = e => setDrinkName(e.target.value);
 
   if (showForm) {
     return (
       <form className="header" onSubmit={handleSubmit} onChange={handleChange}>
         <div className="form-group">
           <label htmlFor="drink">Add Drink</label>
-          <input type="text" id="drink" name='drink' value={drinkName} />
+          <input type="text" id="drink" name='drink' value={drinkName} disabled={loading} onChange={updateDrink} />
         </div>
         <IngredientsInput ingredients={ingredients} handleChange={handleChange} />
         <div className="form-group">
-          <button className="btn" onClick={addIngredient}>Add Ingredient</button>
+          <button className="btn" onClick={addIngredient} disabled={loading}>Add Ingredient</button>
         </div>
         <div className="form-group">
-          <button className="btn" onClick={handleSubmit}>Add Drink</button>
+          <button className="btn" onClick={handleSubmit} disabled={loading}>Add Drink</button>
         </div>
       </form>
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function IngredientsInput({ingredients}) {
+function IngredientsInput({ingredients, handleChange}) {
   return ingredients.map( (ingredient, idx) => {
     const nameId = `name-${idx}`;
     const amountId = `amount-${idx}`;
@@ -15,7 +15,8 @@ function IngredientsInput({ingredients}) {
             data-id={idx}
             id={nameId}
             value={ingredient.name}
-            className='ingredient-name'
+            className='name'
+            onChange={handleChange}
           />
         </div>
         <div className='form-group'>
@@ -26,9 +27,10 @@ function IngredientsInput({ingredients}) {
             data-id={idx}
             id={amountId}
             value={ingredient.amount}
-            className='ingredient-amount'
+            className='amount'
             step='0.25'
             min='0.25'
+            onChange={handleChange}
           />
         </div>
       </div>
