@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import { ApolloProvider } from '@apollo/client';
 import { client } from './client';
 import './App.css'
@@ -7,18 +7,6 @@ import DrinkForm from './DrinkForm';
 
 
 function App() {
-  // const [flashcards, setFlashcards] = useState([])
-  // const [categories, setCategories] = useState([])
-  // const { data, loading } = useQuery(DRINKS_QUERY);
-
-
-  const categoryEl = useRef()
-
-  function handleSubmit(e) {
-    e.preventDefault()
-
-  }
-
   
   return (
       <ApolloProvider client={client}>

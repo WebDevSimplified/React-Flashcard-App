@@ -5,7 +5,7 @@ type Drink {
 
 type Ingredient {
   name: String!
-  amount: Float!
+  amount: String!
   drink: Drink!
 }
 
