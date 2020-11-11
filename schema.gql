@@ -1,0 +1,14 @@
+type Drink {
+  name: String!
+  ingredients: [Ingredient!] @relation
+}
+
+type Ingredient {
+  name: String!
+  amount: Float!
+  drink: Drink!
+}
+
+type Query {
+  allDrinks: [Drink!]
+}
