@@ -3,6 +3,8 @@ body {
   margin: 0;
 }
 
+.top-marg { margin-top: 1rem !important; }
+
 .container {
   max-width: 900px;
   margin: 1rem 2rem;
